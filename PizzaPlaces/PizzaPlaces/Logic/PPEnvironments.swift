@@ -17,8 +17,8 @@ class PPEnvironment {
 }
 
 class PPEnvironments {
-    public static let testEnv = PPEnvironment(baseUrl: "https://")
-    public static let productionEnv = PPEnvironment(baseUrl: "https://")
+    public static let testEnv = PPEnvironment(baseUrl: "https://pizzaplaces.free.beeceptor.com/")
+    public static let productionEnv = PPEnvironment(baseUrl: "https://pizzaplaces.free.beeceptor.com/")
 }
 
 

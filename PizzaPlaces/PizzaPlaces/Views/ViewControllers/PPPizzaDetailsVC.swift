@@ -1,5 +1,5 @@
 //
-//  PPMainVC.swift
+//  PPPizzaDetailsVC.swift
 //  PizzaPlaces
 //
 //  Created by Marco Guerrieri on 03/12/18.
@@ -7,14 +7,11 @@
 //
 
 import UIKit
-import GoogleMaps
 
-class PPMainVC: PPViewController, ViewModelBased {
-    typealias ViewModel = PPMainViewModel
+class PPPizzaDetailsVC: PPViewController, ViewModelBased {
+    typealias ViewModel = PPPizzaDetailsViewModel
     
-    var viewModel: PPMainViewModel?
-    
-    @IBOutlet weak var mapContainer: UIView!
+    var viewModel: PPPizzaDetailsViewModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
