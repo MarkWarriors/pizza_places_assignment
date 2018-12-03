@@ -20,15 +20,17 @@ class PizzaPlacesTests: XCTestCase {
     }
 
     func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+        let api = PPApiHandler.init(environment: PPEnvironments.productionEnv)
+        let expectations = expectation(description: "callbacks")
+        expectations.expectedFulfillmentCount = 2
+        api.getFriendsList { (friends, error) in
+            expectations.fulfill()
         }
+        
+        api.getResturantsList { (resturants, error) in
+            expectations.fulfill()
+        }
+        waitForExpectations(timeout: 5)
     }
 
 }

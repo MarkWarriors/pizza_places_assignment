@@ -21,8 +21,20 @@ class PPMainVC: PPViewController, ViewModelBased {
 
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setupMap()
+        bindViewModel()
+    }
+    
     func bindViewModel() {
         
+    }
+    
+    func setupMap(){
+        let camera = GMSCameraPosition.camera(withLatitude: 52.1827, longitude: 4.5819, zoom: 6.0)
+        let mapView = GMSMapView.map(withFrame: self.mapContainer.bounds, camera: camera)
+        self.mapContainer.addSubview(mapView)
     }
     
 }

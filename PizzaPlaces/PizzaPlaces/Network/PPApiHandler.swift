@@ -16,7 +16,8 @@ class PPApiHandler {
 
     init(environment: PPEnvironment) {
         self.environment = environment
-        self.sessionManager = SessionManager.init()
+        let sessionConfig = URLSessionConfiguration.default
+        self.sessionManager = SessionManager.init(configuration: sessionConfig)
     }
     
     fileprivate var resturantsListUri : URL {
@@ -31,12 +32,41 @@ class PPApiHandler {
         return URL(string: self.environment.baseUrl + "pizza/" + resturandId)!
     }
     
-    public func getResturantsList(callback: ((Any?, PPError?)->())?){
+    public func getResturantsList(callback: (([PPResturant]?, PPError?)->())?){
         self.sessionManager.request(self.resturantsListUri, method: .get)
             .validate()
             .responseData { (response) in
                 switch (response.result) {
                 case .success:
+                    let data = try? JSONDecoder().decode(PPResturantListResponse.self, from: response.data ?? Data())
+                    if let data = data {
+                        callback?(data.list.places, nil)
+                    }
+                    else {
+                        callback?(nil, PPError(localizedDescription: PPStrings.Errors.unknownError))
+                    }
+                    break
+                case .failure:
+                    // TODO: improve errors from status code
+                    callback?(nil, PPError(localizedDescription: PPStrings.Errors.invalidRequest))
+                    break
+                }
+        }
+    }
+    
+    public func getFriendsList(callback: (([PPFriend]?, PPError?)->())?){
+        self.sessionManager.request(self.friendsListUri, method: .get)
+            .validate()
+            .responseData { (response) in
+                switch (response.result) {
+                case .success:
+                    let data = try? JSONDecoder().decode(PPFriendResponse.self, from: response.data ?? Data())
+                    if let data = data {
+                        callback?(data, nil)
+                    }
+                    else {
+                        callback?(nil, PPError(localizedDescription: PPStrings.Errors.unknownError))
+                    }
                     break
                 case .failure:
                     // TODO: improve errors from status code
