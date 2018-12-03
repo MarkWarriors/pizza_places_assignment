@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  PPMainVC.swift
 //  PizzaPlaces
 //
 //  Created by Marco Guerrieri on 03/12/18.
@@ -8,13 +8,15 @@
 
 import UIKit
 
-class ViewController: UIViewController {
-
+class PPMainVC: PPViewController, ViewModelBased {
+    typealias ViewModel = PPMainViewModel
+    var viewModel: PPMainViewModel?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
     }
-
-
+    
+    func bindViewModel() {
+    }
+    
 }
-
