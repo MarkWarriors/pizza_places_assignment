@@ -9,7 +9,7 @@
 import UIKit
 import GoogleMaps
 
-class PPMainVC: PPViewController, ViewModelBased {
+class PPMainVC: PPViewController, ViewModelBased, GMSMapViewDelegate {
     typealias ViewModel = PPMainViewModel
     
     var viewModel: PPMainViewModel?
@@ -34,7 +34,14 @@ class PPMainVC: PPViewController, ViewModelBased {
     func setupMap(){
         let camera = GMSCameraPosition.camera(withLatitude: 52.1827, longitude: 4.5819, zoom: 6.0)
         let mapView = GMSMapView.map(withFrame: self.mapContainer.bounds, camera: camera)
+        self.rx.methodInvoked(#selector())
+        mapView.rx.methodInvoked(#selector(position))
+        mapView.delegate = self
         self.mapContainer.addSubview(mapView)
     }
+    
+//    func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition) {
+//
+//    }
     
 }

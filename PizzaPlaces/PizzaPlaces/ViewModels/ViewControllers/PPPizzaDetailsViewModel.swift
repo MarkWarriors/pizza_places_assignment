@@ -8,26 +8,9 @@
 
 import UIKit
 
-class PPPizzaDetailsViewModel {
+class PPPizzaDetailsViewModel : PPViewModel {
     
     private let apiHandler : PPApiHandler
-    
-    private var privateErrorOccurred : PPError? {
-        didSet {
-            if let error = privateErrorOccurred {
-                self.onErrorOccurred?(error)
-            }
-        }
-    }
-    
-    private var privateOnLoading : Bool = false {
-        didSet {
-            self.onLoading?(privateOnLoading)
-        }
-    }
-    
-    public var onErrorOccurred : ((PPError)->())?
-    public var onLoading : ((Bool)->())?
     
     init(apiHandler: PPApiHandler) {
         self.apiHandler = apiHandler

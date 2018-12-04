@@ -7,30 +7,26 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
-class PPMainViewModel {
+class PPMainViewModel : PPViewModel {
     
     private let apiHandler : PPApiHandler
     
-    private var privateErrorOccurred : PPError? {
-        didSet {
-            if let error = privateErrorOccurred {
-                self.onErrorOccurred?(error)
-            }
-        }
+    private let privateResturantsList = PublishRelay<PPResturant>()
+    public var resturantsList : Observable<PPResturant> {
+        return self.privateResturantsList.asObservable()
     }
-    
-    private var privateOnLoading : Bool = false {
-        didSet {
-            self.onLoading?(privateOnLoading)
-        }
-    }
-    
-    public var onErrorOccurred : ((PPError)->())?
-    public var onLoading : ((Bool)->())?
     
     init(apiHandler: PPApiHandler) {
         self.apiHandler = apiHandler
+    }
+    
+    public func initBindings(viewDidAppear: Driver<Void>,
+                      loadPlaces: Driver<Void>
+        ){
+        
     }
     
 }
