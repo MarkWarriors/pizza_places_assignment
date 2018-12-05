@@ -15,6 +15,8 @@ class PPMainVC: PPViewController, ViewModelBased, GMSMapViewDelegate {
     var viewModel: PPMainViewModel?
     
     @IBOutlet weak var mapContainer: UIView!
+    @IBOutlet weak var navSearchBtn: UIBarButtonItem!
+    @IBOutlet weak var navPizzaBtn: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,16 +34,14 @@ class PPMainVC: PPViewController, ViewModelBased, GMSMapViewDelegate {
     }
     
     func setupMap(){
-        let camera = GMSCameraPosition.camera(withLatitude: 52.1827, longitude: 4.5819, zoom: 6.0)
+        let camera = GMSCameraPosition.camera(withLatitude: 52.2827, longitude: 4.6819, zoom: 12.0)
         let mapView = GMSMapView.map(withFrame: self.mapContainer.bounds, camera: camera)
-        self.rx.methodInvoked(#selector())
-        mapView.rx.methodInvoked(#selector(position))
         mapView.delegate = self
         self.mapContainer.addSubview(mapView)
     }
     
-//    func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition) {
-//
-//    }
+    func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
+        
+    }
     
 }

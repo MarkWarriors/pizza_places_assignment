@@ -19,6 +19,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         GMSServices.provideAPIKey(PPApiKey.googleMapsKey)
         
+        let mainSB = UIStoryboard.init(name: "Main", bundle: nil)
+        let navigationController = mainSB.instantiateInitialViewController() as? UINavigationController
+        let navigationBar = navigationController!.navigationBar
+        navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationBar.shadowImage = UIImage()
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window!.rootViewController = navigationController
+        window!.makeKeyAndVisible()        
         return true
     }
 
