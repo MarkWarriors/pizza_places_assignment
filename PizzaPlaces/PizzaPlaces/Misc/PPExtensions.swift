@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import GoogleMaps
+
 
 extension Double {
     public func toStringWith(decimals: Int) -> String {
@@ -85,3 +87,13 @@ class PPRoundButton: UIButton {
     
 }
 
+class PPMarker : GMSMarker {
+    var id : String
+    
+    init(resturant: PPResturant) {
+        self.id = resturant.id
+        super.init()
+        self.snippet = resturant.name
+        self.position = resturant.coordinates ?? CLLocationCoordinate2D()
+    }
+}

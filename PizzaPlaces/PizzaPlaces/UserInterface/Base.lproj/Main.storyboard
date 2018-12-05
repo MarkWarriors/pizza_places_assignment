@@ -115,7 +115,39 @@
                     <view key="view" contentMode="scaleToFill" id="eOe-Vg-3Dz">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qk5-ry-dAL">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="180"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="180" id="40J-ki-2Un"/>
+                                </constraints>
+                            </imageView>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Nx-eh-F7S">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wHm-Ue-Cjq">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="wHm-Ue-Cjq" firstAttribute="top" secondItem="0Nx-eh-F7S" secondAttribute="top" id="1JP-VD-CHS"/>
+                                    <constraint firstAttribute="trailing" secondItem="wHm-Ue-Cjq" secondAttribute="trailing" id="KOY-Q1-rck"/>
+                                    <constraint firstAttribute="bottom" secondItem="wHm-Ue-Cjq" secondAttribute="bottom" id="eii-Bb-1KO"/>
+                                    <constraint firstItem="wHm-Ue-Cjq" firstAttribute="leading" secondItem="0Nx-eh-F7S" secondAttribute="leading" id="g3h-Vf-221"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="0Nx-eh-F7S" firstAttribute="leading" secondItem="mQD-Ww-3lx" secondAttribute="leading" id="1Gt-xf-vXc"/>
+                            <constraint firstItem="qk5-ry-dAL" firstAttribute="trailing" secondItem="mQD-Ww-3lx" secondAttribute="trailing" id="2Fz-hn-8ch"/>
+                            <constraint firstItem="0Nx-eh-F7S" firstAttribute="top" secondItem="mQD-Ww-3lx" secondAttribute="top" id="ELp-1Q-EiE"/>
+                            <constraint firstItem="0Nx-eh-F7S" firstAttribute="bottom" secondItem="mQD-Ww-3lx" secondAttribute="bottom" id="Jjv-HC-QXz"/>
+                            <constraint firstItem="0Nx-eh-F7S" firstAttribute="trailing" secondItem="mQD-Ww-3lx" secondAttribute="trailing" id="QHd-7c-t9N"/>
+                            <constraint firstItem="qk5-ry-dAL" firstAttribute="top" secondItem="mQD-Ww-3lx" secondAttribute="top" id="ct4-YS-0N0"/>
+                            <constraint firstItem="qk5-ry-dAL" firstAttribute="leading" secondItem="mQD-Ww-3lx" secondAttribute="leading" id="yxk-g7-b66"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="mQD-Ww-3lx"/>
                     </view>
                     <navigationItem key="navigationItem" id="0WF-a4-phV">
@@ -130,7 +162,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jLj-VZ-4YW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="260" y="312"/>
+            <point key="canvasLocation" x="260" y="311.69415292353824"/>
         </scene>
     </scenes>
     <resources>

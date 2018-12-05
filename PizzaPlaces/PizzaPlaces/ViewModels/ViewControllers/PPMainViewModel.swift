@@ -15,14 +15,14 @@ class PPMainViewModel : PPViewModel {
     
     private let apiHandler : PPApiHandler
     
-    private let privateResturantsList = PublishRelay<[PPResturant]>()
-    public var resturantsList : Observable<[PPResturant]> {
-        return self.privateResturantsList.asObservable()
+    private let privateMarkerList = BehaviorRelay<[PPMarker]>(value: [])
+    public var markerList : Observable<[PPMarker]> {
+        return self.privateMarkerList.asObservable()
     }
     
     private let privateResturantDetail = PublishRelay<PPResturant>()
     public var resturantDetail : Observable<PPResturant> {
-        return self.resturantDetail.asObservable()
+        return self.privateResturantDetail.asObservable()
     }
     
     init(apiHandler: PPApiHandler) {
@@ -31,7 +31,7 @@ class PPMainViewModel : PPViewModel {
     
     public func initBindings(viewWillAppear: Driver<Void>,
                              loadPlaces: Driver<(GMSCameraPosition)>?,
-                             poiTap: Driver<(placeId: String, name: String, location: CLLocationCoordinate2D)>?){
+                             poiTapped: Driver<(placeId: String, name: String, location: CLLocationCoordinate2D)>?){
         
         loadPlaces?
             .asObservable()
@@ -41,7 +41,17 @@ class PPMainViewModel : PPViewModel {
                 return Observable.error(error)
             })
             .retry()
-            .bind(to: self.privateResturantsList)
+            .map({ (resturants) -> [PPMarker] in
+                var markerList = [PPMarker]()
+                resturants
+                    .filter{ $0.coordinates != nil }
+                    .forEach({ (resturant) in
+                        let marker = PPMarker.init(resturant: resturant)
+                        markerList.append(marker)
+                })
+                return markerList
+            })
+            .bind(to: self.privateMarkerList)
         .disposed(by: self.disposeBag)
     
     }

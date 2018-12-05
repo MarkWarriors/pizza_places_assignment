@@ -51,11 +51,11 @@ class PPMainVC: PPViewController, ViewModelBased, GMSMapViewDelegate {
             .asDriver(onErrorJustReturn: ())
         
         let mapChange = mapView?.rx.idleAt.asDriver()
-        let poiTap = mapView?.rx.didTapAtPoi.asDriver()
+        let poiTapped = mapView?.rx.didTapAtPoi.asDriver()
         
         viewModel!.initBindings(viewWillAppear: viewWillAppear,
                                 loadPlaces: mapChange,
-                                poiTap: poiTap)
+                                poiTapped: poiTapped)
         
         viewModel!.error.subscribe(onNext: { (error) in
             self.showAlertFor(error: error)
@@ -64,19 +64,22 @@ class PPMainVC: PPViewController, ViewModelBased, GMSMapViewDelegate {
         
         
         
-        viewModel!.resturantsList.subscribe(onNext: { (resturants) in
-            print("\(resturants.count) resturants")
-            resturants
-                .filter{ $0.coordinates != nil }
-                .forEach({ (resturant) in
-                    print("add marker")
-                    let marker = GMSMarker.init(position: resturant.coordinates!)
+        viewModel!.markerList.subscribe(onNext: { (markers) in
+            // we can think to use an array of current marker to avoid the "clear all then put markers that previously already exists
+            self.mapView?.clear()
+            markers
+                .forEach({ (marker) in
+                    marker.isTappable = true
+                    //maybe we can change the scale of the marker
                     marker.icon = PPImages.Marker.icon
                     marker.map = self.mapView
-                    marker.isTappable = true
             })
         })
         .disposed(by: self.disposeBag)
+    }
+    
+    func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
+        return UIView()
     }
     
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {

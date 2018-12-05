@@ -23,7 +23,7 @@ class PPApiHandler {
     }
     
     fileprivate var resturantsListUri : URL {
-        return URL(string: self.environment.baseUrl + "pizza")!
+        return URL(string: self.environment.baseUrl + "pizzaplaces")!
     }
     
     fileprivate var friendsListUri : URL {
@@ -31,7 +31,7 @@ class PPApiHandler {
     }
     
     fileprivate func resturantsDetailUri(resturandId: String) -> URL {
-        return URL(string: self.environment.baseUrl + "pizza/" + resturandId)!
+        return URL(string: self.environment.baseUrl + "pizzaplaces/" + resturandId)!
     }
     
     func getResturantsList(position: GMSCameraPosition) -> Observable<[PPResturant]> {
