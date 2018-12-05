@@ -99,8 +99,8 @@
                     </navigationItem>
                     <connections>
                         <outlet property="mapContainer" destination="Yic-p7-Qq0" id="CIt-2b-k3t"/>
-                        <outlet property="navPizzaBtn" destination="bJ2-4N-Ibf" id="2yW-Bv-RKd"/>
-                        <outlet property="navSearchBtn" destination="m9k-WF-l3N" id="xkd-E7-L0Q"/>
+                        <outlet property="navPizzaBtn" destination="RgJ-7q-gZh" id="j7q-gi-ApA"/>
+                        <outlet property="navSearchBtn" destination="URW-lp-ayq" id="khO-2o-IyI"/>
                         <segue destination="Ezi-bi-PaR" kind="show" identifier="toPizzaDetails" id="64n-Zg-uWY"/>
                     </connections>
                 </viewController>
@@ -108,26 +108,79 @@
             </objects>
             <point key="canvasLocation" x="-508" y="311.69415292353824"/>
         </scene>
-        <!--View Controller-->
+        <!--Pizza DetailsVC-->
         <scene sceneID="qPF-dw-uR2">
             <objects>
-                <viewController id="Ezi-bi-PaR" sceneMemberID="viewController">
+                <viewController id="Ezi-bi-PaR" customClass="PPPizzaDetailsVC" customModule="PizzaPlaces" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="eOe-Vg-3Dz">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qk5-ry-dAL">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="180"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="PizzaBtn" translatesAutoresizingMaskIntoConstraints="NO" id="qk5-ry-dAL">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="312.5"/>
+                                <color key="backgroundColor" red="0.93725490570000003" green="0.93725490570000003" blue="0.95686274770000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="180" id="40J-ki-2Un"/>
+                                    <constraint firstAttribute="width" secondItem="qk5-ry-dAL" secondAttribute="height" multiplier="1.2" id="jk2-2J-Wci"/>
                                 </constraints>
                             </imageView>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Nx-eh-F7S">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Nx-eh-F7S">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wHm-Ue-Cjq">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wHm-Ue-Cjq">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="1112.5"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="49a-Mt-sdg" userLabel="transparentView">
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="312.5"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zwn-BB-MmU" userLabel="detailsView">
+                                                <rect key="frame" x="0.0" y="312.5" width="375" height="800"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GPt-Pq-1QY">
+                                                        <rect key="frame" x="24" y="24" width="327" height="690"/>
+                                                        <mutableString key="text">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"</mutableString>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xmR-p9-ALp" customClass="PPRoundButton" customModule="PizzaPlaces" customModuleProvider="target">
+                                                        <rect key="frame" x="301" y="-25" width="50" height="50"/>
+                                                        <color key="backgroundColor" red="0.92941176469999998" green="0.1137254902" blue="0.14117647059999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="50" id="M3E-f3-Vs8"/>
+                                                            <constraint firstAttribute="height" constant="50" id="MQh-Ca-yqh"/>
+                                                        </constraints>
+                                                        <state key="normal" image="FavouriteBtn"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                <real key="value" value="25"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </button>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="trailing" secondItem="GPt-Pq-1QY" secondAttribute="trailing" constant="24" id="7pS-7l-baL"/>
+                                                    <constraint firstItem="xmR-p9-ALp" firstAttribute="centerY" secondItem="zwn-BB-MmU" secondAttribute="top" id="bnx-X4-H4F"/>
+                                                    <constraint firstItem="GPt-Pq-1QY" firstAttribute="leading" secondItem="zwn-BB-MmU" secondAttribute="leading" constant="24" id="qBs-Xh-R23"/>
+                                                    <constraint firstAttribute="height" constant="800" id="qtg-iw-k9Y"/>
+                                                    <constraint firstItem="GPt-Pq-1QY" firstAttribute="top" secondItem="zwn-BB-MmU" secondAttribute="top" constant="24" id="rdy-PJ-Rz6"/>
+                                                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="GPt-Pq-1QY" secondAttribute="bottom" constant="24" id="vWG-M7-VFp"/>
+                                                    <constraint firstAttribute="trailing" secondItem="xmR-p9-ALp" secondAttribute="trailing" constant="24" id="vmD-J6-Pyv"/>
+                                                </constraints>
+                                            </view>
+                                        </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="zwn-BB-MmU" firstAttribute="leading" secondItem="wHm-Ue-Cjq" secondAttribute="leading" id="1IH-sL-tHn"/>
+                                            <constraint firstAttribute="trailing" secondItem="49a-Mt-sdg" secondAttribute="trailing" id="Tbo-5q-W9A"/>
+                                            <constraint firstItem="49a-Mt-sdg" firstAttribute="leading" secondItem="wHm-Ue-Cjq" secondAttribute="leading" id="Vqa-ph-lMe"/>
+                                            <constraint firstItem="49a-Mt-sdg" firstAttribute="top" secondItem="wHm-Ue-Cjq" secondAttribute="top" id="YaN-QZ-U0L"/>
+                                            <constraint firstAttribute="bottom" secondItem="zwn-BB-MmU" secondAttribute="bottom" id="dOG-W5-gZq"/>
+                                            <constraint firstItem="zwn-BB-MmU" firstAttribute="top" secondItem="49a-Mt-sdg" secondAttribute="bottom" id="ob6-vG-LJH"/>
+                                            <constraint firstAttribute="trailing" secondItem="zwn-BB-MmU" secondAttribute="trailing" id="pZh-uM-KFb"/>
+                                        </constraints>
                                     </view>
                                 </subviews>
                                 <constraints>
@@ -136,16 +189,21 @@
                                     <constraint firstAttribute="bottom" secondItem="wHm-Ue-Cjq" secondAttribute="bottom" id="eii-Bb-1KO"/>
                                     <constraint firstItem="wHm-Ue-Cjq" firstAttribute="leading" secondItem="0Nx-eh-F7S" secondAttribute="leading" id="g3h-Vf-221"/>
                                 </constraints>
+                                <connections>
+                                    <outlet property="delegate" destination="Ezi-bi-PaR" id="oMX-rk-5Rz"/>
+                                </connections>
                             </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="0Nx-eh-F7S" firstAttribute="leading" secondItem="mQD-Ww-3lx" secondAttribute="leading" id="1Gt-xf-vXc"/>
                             <constraint firstItem="qk5-ry-dAL" firstAttribute="trailing" secondItem="mQD-Ww-3lx" secondAttribute="trailing" id="2Fz-hn-8ch"/>
+                            <constraint firstItem="49a-Mt-sdg" firstAttribute="width" secondItem="qk5-ry-dAL" secondAttribute="width" id="Da5-vL-Rfz"/>
                             <constraint firstItem="0Nx-eh-F7S" firstAttribute="top" secondItem="mQD-Ww-3lx" secondAttribute="top" id="ELp-1Q-EiE"/>
                             <constraint firstItem="0Nx-eh-F7S" firstAttribute="bottom" secondItem="mQD-Ww-3lx" secondAttribute="bottom" id="Jjv-HC-QXz"/>
                             <constraint firstItem="0Nx-eh-F7S" firstAttribute="trailing" secondItem="mQD-Ww-3lx" secondAttribute="trailing" id="QHd-7c-t9N"/>
                             <constraint firstItem="qk5-ry-dAL" firstAttribute="top" secondItem="mQD-Ww-3lx" secondAttribute="top" id="ct4-YS-0N0"/>
+                            <constraint firstItem="49a-Mt-sdg" firstAttribute="height" secondItem="qk5-ry-dAL" secondAttribute="height" id="nLZ-pa-3bl"/>
                             <constraint firstItem="qk5-ry-dAL" firstAttribute="leading" secondItem="mQD-Ww-3lx" secondAttribute="leading" id="yxk-g7-b66"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="mQD-Ww-3lx"/>
@@ -159,6 +217,11 @@
                             </button>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="imageTopConstraint" destination="ct4-YS-0N0" id="A8E-lR-MS2"/>
+                        <outlet property="resturantImage" destination="qk5-ry-dAL" id="5jU-Ce-uin"/>
+                        <outlet property="scrollView" destination="0Nx-eh-F7S" id="Lfr-FN-Lok"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jLj-VZ-4YW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -166,6 +229,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="FavouriteBtn" width="30" height="30"/>
         <image name="MoreBtn" width="22" height="22"/>
         <image name="PizzaBtn" width="22" height="22"/>
         <image name="SearchBtn" width="22" height="22"/>

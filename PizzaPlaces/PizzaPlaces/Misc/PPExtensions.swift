@@ -92,6 +92,7 @@ class PPMarker : GMSMarker {
     
     init(resturant: PPResturant) {
         self.id = resturant.id
+        //TODO OPEN/CLOSE
         super.init()
         self.snippet = resturant.name
         self.position = resturant.coordinates ?? CLLocationCoordinate2D()

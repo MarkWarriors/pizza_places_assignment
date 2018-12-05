@@ -19,8 +19,8 @@ class PPMainVC: PPViewController, ViewModelBased, GMSMapViewDelegate {
     var mapView : GMSMapView?
     
     @IBOutlet weak var mapContainer: UIView!
-    @IBOutlet weak var navSearchBtn: UIBarButtonItem!
-    @IBOutlet weak var navPizzaBtn: UIBarButtonItem!
+    @IBOutlet weak var navSearchBtn: UIButton!
+    @IBOutlet weak var navPizzaBtn: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,8 +62,6 @@ class PPMainVC: PPViewController, ViewModelBased, GMSMapViewDelegate {
         })
         .disposed(by: self.disposeBag)
         
-        
-        
         viewModel!.markerList.subscribe(onNext: { (markers) in
             // we can think to use an array of current marker to avoid the "clear all then put markers that previously already exists
             self.mapView?.clear()
@@ -76,6 +74,11 @@ class PPMainVC: PPViewController, ViewModelBased, GMSMapViewDelegate {
             })
         })
         .disposed(by: self.disposeBag)
+        
+        navSearchBtn.rx.tap.asDriver().drive(onNext: { (_) in
+            self.performSegue(withIdentifier: "toPizzaDetails", sender: self)
+        })
+        .disposed(by: self.disposeBag)
     }
     
     func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
@@ -83,6 +86,7 @@ class PPMainVC: PPViewController, ViewModelBased, GMSMapViewDelegate {
     }
     
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
+        
         return true
     }
     
