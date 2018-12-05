@@ -9,6 +9,7 @@ target 'PizzaPlaces' do
   pod 'GoogleMaps', '~> 2.7.0'
   pod 'RxSwift', '~> 4.4.0'
   pod 'RxCocoa', '~> 4.4.0'
+  pod 'RxGoogleMaps'
 
   target 'PizzaPlacesTests' do
     inherit! :search_paths

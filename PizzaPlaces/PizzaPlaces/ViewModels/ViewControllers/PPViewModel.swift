@@ -14,8 +14,8 @@ class PPViewModel {
     
     let disposeBag = DisposeBag()
     
-    private let privateIsLoading = PublishRelay<Bool>()
-    private let privateError = PublishRelay<(PPError)>()
+    internal let privateIsLoading = PublishRelay<Bool>()
+    internal let privateError = PublishRelay<(PPError)>()
     
     
     var isLoading : Observable<Bool> {

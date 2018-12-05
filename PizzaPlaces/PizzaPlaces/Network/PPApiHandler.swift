@@ -7,7 +7,9 @@
 //
 
 import Foundation
+import RxSwift
 import Alamofire
+import GoogleMaps
 
 class PPApiHandler {
     
@@ -32,48 +34,60 @@ class PPApiHandler {
         return URL(string: self.environment.baseUrl + "pizza/" + resturandId)!
     }
     
-    public func getResturantsList(callback: (([PPResturant]?, PPError?)->())?){
-        self.sessionManager.request(self.resturantsListUri, method: .get)
-            .validate()
-            .responseData { (response) in
-                switch (response.result) {
-                case .success:
-                    let data = try? JSONDecoder().decode(PPResturantListResponse.self, from: response.data ?? Data())
-                    if let data = data {
-                        callback?(data.list.places, nil)
+    func getResturantsList(position: GMSCameraPosition) -> Observable<[PPResturant]> {
+        return Observable.create { (observer) -> Disposable in
+            self.sessionManager.request(self.resturantsListUri, method: .get)
+                .validate()
+                .responseData { (response) in
+                    switch (response.result) {
+                    case .success:
+                        let data = try? JSONDecoder().decode(PPResturantListResponse.self, from: response.data ?? Data())
+                        if let places = data?.list.places {
+                            observer.onNext(places)
+                            observer.onCompleted()
+                        }
+                        else {
+                            observer.onError(PPError(localizedDescription: PPStrings.Errors.unknownError))
+                        }
+                        break
+                    case .failure:
+                        // TODO: improve errors from status code
+                        observer.on(.error(PPError(localizedDescription: PPStrings.Errors.invalidRequest)))
+                        break
                     }
-                    else {
-                        callback?(nil, PPError(localizedDescription: PPStrings.Errors.unknownError))
-                    }
-                    break
-                case .failure:
-                    // TODO: improve errors from status code
-                    callback?(nil, PPError(localizedDescription: PPStrings.Errors.invalidRequest))
-                    break
-                }
+            }
+            
+            return Disposables.create()
         }
     }
     
-    public func getFriendsList(callback: (([PPFriend]?, PPError?)->())?){
-        self.sessionManager.request(self.friendsListUri, method: .get)
-            .validate()
-            .responseData { (response) in
-                switch (response.result) {
-                case .success:
-                    let data = try? JSONDecoder().decode(PPFriendResponse.self, from: response.data ?? Data())
-                    if let data = data {
-                        callback?(data, nil)
+    func getFriendsList() -> Observable<[PPFriend]> {
+        return Observable.create { (observer) -> Disposable in
+            self.sessionManager.request(self.friendsListUri, method: .get)
+                .validate()
+                .responseData { (response) in
+                    switch (response.result) {
+                    case .success:
+                        let friends = try? JSONDecoder().decode(PPFriendResponse.self, from: response.data ?? Data())
+                        if let friends = friends {
+                            observer.on(.next(friends))
+                            observer.on(.completed)
+                        }
+                        else {
+                            observer.on(.error(PPError(localizedDescription: PPStrings.Errors.unknownError)))
+                        }
+                        break
+                    case .failure:
+                        // TODO: improve errors from status code
+                        observer.on(.error(PPError(localizedDescription: PPStrings.Errors.invalidRequest)))
+                        break
                     }
-                    else {
-                        callback?(nil, PPError(localizedDescription: PPStrings.Errors.unknownError))
-                    }
-                    break
-                case .failure:
-                    // TODO: improve errors from status code
-                    callback?(nil, PPError(localizedDescription: PPStrings.Errors.invalidRequest))
-                    break
-                }
+            }
+            
+            return Disposables.create()
         }
     }
+
+    
     
 }

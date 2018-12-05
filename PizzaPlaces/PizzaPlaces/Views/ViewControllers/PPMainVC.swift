@@ -7,12 +7,16 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 import GoogleMaps
+import RxGoogleMaps
 
 class PPMainVC: PPViewController, ViewModelBased, GMSMapViewDelegate {
     typealias ViewModel = PPMainViewModel
     
     var viewModel: PPMainViewModel?
+    var mapView : GMSMapView?
     
     @IBOutlet weak var mapContainer: UIView!
     @IBOutlet weak var navSearchBtn: UIBarButtonItem!
@@ -29,19 +33,54 @@ class PPMainVC: PPViewController, ViewModelBased, GMSMapViewDelegate {
         bindViewModel()
     }
     
-    func bindViewModel() {
-        
-    }
-    
     func setupMap(){
-        let camera = GMSCameraPosition.camera(withLatitude: 52.2827, longitude: 4.6819, zoom: 12.0)
-        let mapView = GMSMapView.map(withFrame: self.mapContainer.bounds, camera: camera)
-        mapView.delegate = self
-        self.mapContainer.addSubview(mapView)
+        // we can obviously use the user position, but for this demo I decided to use Amsterda as fix location
+        let camera = GMSCameraPosition.camera(withLatitude: 52.379189, longitude: 4.899431, zoom: 10.0)
+        mapView = GMSMapView.map(withFrame: self.mapContainer.bounds, camera: camera)
+        
+        if mapView != nil {
+            mapView!.delegate = self
+            self.mapContainer.addSubview(mapView!)
+        }
     }
     
-    func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
+    
+    func bindViewModel() {
+        let viewWillAppear =  self.rx.sentMessage(#selector(UIViewController.viewWillAppear(_:)))
+            .map({ _ -> Void in return () })
+            .asDriver(onErrorJustReturn: ())
         
+        let mapChange = mapView?.rx.idleAt.asDriver()
+        let poiTap = mapView?.rx.didTapAtPoi.asDriver()
+        
+        viewModel!.initBindings(viewWillAppear: viewWillAppear,
+                                loadPlaces: mapChange,
+                                poiTap: poiTap)
+        
+        viewModel!.error.subscribe(onNext: { (error) in
+            self.showAlertFor(error: error)
+        })
+        .disposed(by: self.disposeBag)
+        
+        
+        
+        viewModel!.resturantsList.subscribe(onNext: { (resturants) in
+            print("\(resturants.count) resturants")
+            resturants
+                .filter{ $0.coordinates != nil }
+                .forEach({ (resturant) in
+                    print("add marker")
+                    let marker = GMSMarker.init(position: resturant.coordinates!)
+                    marker.icon = PPImages.Marker.icon
+                    marker.map = self.mapView
+                    marker.isTappable = true
+            })
+        })
+        .disposed(by: self.disposeBag)
+    }
+    
+    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
+        return true
     }
     
 }

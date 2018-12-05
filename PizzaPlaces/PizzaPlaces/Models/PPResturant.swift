@@ -7,13 +7,21 @@
 //
 
 import Foundation
+import CoreLocation
 
 struct PPResturant: Codable {
-    let id, name, phone: String
-    let website: String
-    let formattedAddress, city: String
+    let id : String
+    let name : String
+    let phone : String?
+    let website : String?
+    let formattedAddress : String?
+    let city : String?
     let openingHours: [String]
     let longitude, latitude: Double
     let images: [Image]
     let friendIds: [String]
+    
+    var coordinates : CLLocationCoordinate2D? {
+        return CLLocationCoordinate2D.init(latitude: self.latitude, longitude: self.longitude)
+    }
 }

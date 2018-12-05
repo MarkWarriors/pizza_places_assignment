@@ -11,6 +11,8 @@ import RxSwift
 
 class PPViewController: UIViewController {
 
+    let disposeBag = DisposeBag()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
