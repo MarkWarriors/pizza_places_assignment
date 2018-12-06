@@ -24,6 +24,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let navigationBar = navigationController!.navigationBar
         navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationBar.shadowImage = UIImage()
+        navigationBar.backIndicatorImage = PPImages.Navigation.backButton
+        navigationBar.backIndicatorTransitionMaskImage = PPImages.Navigation.backButton
+
         let mainVC = navigationController?.viewControllers.first as? PPMainVC
         mainVC?.viewModel = PPMainViewModel.init(apiHandler: PPApiHandler.init(environment: PPEnvironments.testEnv))
         window = UIWindow(frame: UIScreen.main.bounds)

@@ -17,6 +17,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="GpP-kU-ndr">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <textAttributes key="titleTextAttributes">
                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -38,7 +39,7 @@
             </objects>
             <point key="canvasLocation" x="-1295" y="312"/>
         </scene>
-        <!--MainVC-->
+        <!-- -->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="PPMainVC" customModule="PizzaPlaces" customModuleProvider="target" sceneMemberID="viewController">
@@ -81,7 +82,8 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" id="crT-Fj-Z6p">
+                    <navigationItem key="navigationItem" title=" " id="crT-Fj-Z6p">
+                        <barButtonItem key="backBarButtonItem" title=" " id="UEE-gA-K0O"/>
                         <barButtonItem key="leftBarButtonItem" title="Item" style="plain" id="bJ2-4N-Ibf">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="RgJ-7q-gZh">
                                 <rect key="frame" x="16" y="0.0" width="44" height="44"/>
@@ -108,7 +110,7 @@
             </objects>
             <point key="canvasLocation" x="-508" y="311.69415292353824"/>
         </scene>
-        <!--Pizza DetailsVC-->
+        <!-- -->
         <scene sceneID="qPF-dw-uR2">
             <objects>
                 <viewController id="Ezi-bi-PaR" customClass="PPPizzaDetailsVC" customModule="PizzaPlaces" customModuleProvider="target" sceneMemberID="viewController">
@@ -269,7 +271,8 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="mQD-Ww-3lx"/>
                     </view>
-                    <navigationItem key="navigationItem" id="0WF-a4-phV">
+                    <navigationItem key="navigationItem" title=" " id="0WF-a4-phV">
+                        <barButtonItem key="backBarButtonItem" title=" " id="tT2-a0-KO9"/>
                         <barButtonItem key="rightBarButtonItem" title="Item" style="plain" id="USI-vw-NML">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="jc7-Bz-P4l">
                                 <rect key="frame" x="337" y="11" width="22" height="22"/>
