@@ -83,7 +83,6 @@ class PPMainVC: PPViewController, ViewModelBased {
                     self.mapMarkers.remove(at: index)
                 }
             })
-            print(markerToRemove.count)
             markers
                 .forEach({ (marker) in
                     marker.isTappable = true
