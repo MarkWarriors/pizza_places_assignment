@@ -40,7 +40,7 @@ class PPPizzaDetailsVC: PPViewController, ViewModelBased, UIScrollViewDelegate {
         viewModel!.initBindings(viewWillAppear: viewWillAppear)
         
         viewModel?.resturantImage
-            .catchError { Observable.error(error) }
+            .catchError { Observable.error($0) }
             .filter{ $0 != nil }
             .bind(to: resturantImage.rx.image)
             .disposed(by: self.disposeBag)
@@ -71,8 +71,10 @@ class PPPizzaDetailsVC: PPViewController, ViewModelBased, UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let imageHeight = resturantImage.frame.size.height
         let yOffset = scrollView.contentOffset.y
-        let move = yOffset < 0 ? 0 : yOffset > imageHeight ? -imageHeight : -yOffset
-        self.imageTopConstraint.constant = move / 2
+        if yOffset < 0 {
+            let move = yOffset > imageHeight ? -imageHeight : -yOffset
+            self.imageTopConstraint.constant = move / 2
+        }
     }
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
@@ -88,12 +90,11 @@ class PPPizzaDetailsVC: PPViewController, ViewModelBased, UIScrollViewDelegate {
     func moveScrollViewToAnchor(){
         let yOffset = scrollView.contentOffset.y
         let imageHeight = resturantImage.frame.size.height
-        if yOffset > 0 {
-//            if yOffset < imageHeight / 2 {
-//                scrollView.setContentOffset(CGPoint.zero, animated: true)
-//            }
-//            else
-            if (yOffset < imageHeight) && (scrollView.contentSize.height > (self.view.frame.size.height + imageHeight)) {
+        if yOffset > 0 && (scrollView.contentSize.height > (scrollView.frame.size.height + imageHeight)) {
+            if yOffset < imageHeight / 2 {
+                scrollView.setContentOffset(CGPoint.zero, animated: true)
+            }
+            else if (yOffset > imageHeight / 2 ) && (yOffset < imageHeight) {
                 scrollView.setContentOffset(CGPoint.init(x: 0, y: imageHeight), animated: true)
             }
         }
