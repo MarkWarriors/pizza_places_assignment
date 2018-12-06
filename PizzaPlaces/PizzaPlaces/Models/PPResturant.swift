@@ -36,10 +36,10 @@ struct PPResturant: Codable, Hashable {
         let date = Date()
         let formatter = DateFormatter()
         formatter.dateFormat = "EEEE"
-        let today = formatter.string(from: date)
+        let today = formatter.string(from: date).lowercased()
         
         // todo check between dates if is open, not only from string
-        if let opening = self.openingHours.filter({ $0.lowercased().starts(with: today) }).first, opening.contains("closed") {
+        if let opening = self.openingHours.filter({ $0.lowercased().starts(with: today) }).first {
             return opening.contains("closed") ? PPStrings.Commons.closed : PPStrings.Commons.open
         }
         return ""
