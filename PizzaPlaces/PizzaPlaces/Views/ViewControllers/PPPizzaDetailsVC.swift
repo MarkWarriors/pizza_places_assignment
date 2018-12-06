@@ -9,6 +9,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import Cosmos
 
 class PPPizzaDetailsVC: PPViewController, ViewModelBased, UIScrollViewDelegate {
     typealias ViewModel = PPPizzaDetailsViewModel
@@ -19,9 +20,11 @@ class PPPizzaDetailsVC: PPViewController, ViewModelBased, UIScrollViewDelegate {
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var resturantImage: UIImageView!
     @IBOutlet weak var readMoreBtn: UIButton!
+    @IBOutlet weak var favouriteBtn: PPRoundButton!
     @IBOutlet weak var bookNowBtn: PPRoundButton!
     @IBOutlet weak var detailLbl: UILabel!
     @IBOutlet weak var nameLbl: UILabel!
+    @IBOutlet weak var ratingSelector: CosmosView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,6 +55,11 @@ class PPPizzaDetailsVC: PPViewController, ViewModelBased, UIScrollViewDelegate {
         viewModel?.resturantDescription
             .bind(to: self.detailLbl.rx.text)
             .disposed(by: self.disposeBag)
+        
+        favouriteBtn.rx.tap.asDriver().drive(onNext: { (_) in
+            
+        })
+        .disposed(by: self.disposeBag)
         
         readMoreBtn.rx.tap.asDriver().drive(onNext: { (_) in
             UIView.animate(withDuration: 0.5, animations: {

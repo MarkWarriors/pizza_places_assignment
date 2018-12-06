@@ -63,6 +63,76 @@ extension UIView {
 }
 
 @IBDesignable
+class PPCheckbox: UIButton {
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+    }
+    
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
+    override open func awakeFromNib() {
+        super.awakeFromNib()
+        self.setImage(self.checked ? self.onImage : self.offImage, for: .normal)
+    }
+    
+    override open func prepareForInterfaceBuilder() {
+        super.prepareForInterfaceBuilder()
+    }
+    
+    @IBInspectable var checked: Bool = true {
+        didSet{
+            self.setImage(self.checked ? self.onImage : self.offImage, for: .normal)
+        }
+    }
+    
+    @IBInspectable var onImage: UIImage? {
+        didSet{
+            if self.checked {
+                self.setImage(onImage, for: .normal)
+            }
+        }
+    }
+    
+    @IBInspectable var offImage: UIImage? {
+        didSet{
+            if !self.checked {
+                self.setImage(offImage, for: .normal)
+            }
+        }
+    }
+    
+    override var buttonType: UIButton.ButtonType {
+        return .custom
+    }
+    
+    var changeValue : ((Bool)->())?
+    
+    override func setImage(_ image: UIImage?, for state: UIControl.State) {
+        super.setImage(image, for: state)
+        self.imageView?.contentMode = .scaleAspectFit
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.checked = !self.checked
+        self.setImage(self.checked ? self.onImage : self.offImage, for: .normal)
+        if self.changeValue != nil {
+            self.changeValue!(self.checked)
+        }
+        super.touchesEnded(touches, with: event)
+    }
+    
+    
+    
+}
+
+@IBDesignable
 class PPRoundButton: UIButton {
     
     override init(frame: CGRect) {
