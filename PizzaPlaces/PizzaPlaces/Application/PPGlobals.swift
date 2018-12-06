@@ -10,5 +10,5 @@ import Foundation
 
 
 struct PPApiKey {
-    static let googleMapsKey = ""
+    static let googleMapsKey = ADD_GOOGLE_MAPS_API_KEY
 }
