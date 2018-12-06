@@ -133,6 +133,34 @@ class PPCheckbox: UIButton {
 }
 
 @IBDesignable
+class PPRoundImageView: UIImageView {
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+    }
+    
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
+    override open func awakeFromNib() {
+        super.awakeFromNib()
+        self.cornerRadius = self.frame.width / 2
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.cornerRadius = self.frame.width / 2
+    }
+    
+    override open func prepareForInterfaceBuilder() {
+        super.prepareForInterfaceBuilder()
+        self.cornerRadius = self.frame.width / 2
+    }
+    
+}
+
+@IBDesignable
 class PPRoundButton: UIButton {
     
     override init(frame: CGRect) {
@@ -164,7 +192,7 @@ class PPMarker : GMSMarker {
         self.id = resturant.id
         //TODO OPEN/CLOSE
         super.init()
-        self.snippet = resturant.name
+        self.snippet = resturant.name + " " + resturant.isOpenString() ?? ""
         self.position = resturant.coordinates ?? CLLocationCoordinate2D()
     }
 }

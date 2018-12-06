@@ -35,6 +35,11 @@ class PPPizzaDetailsViewModel : PPViewModel {
         return self.privateResturantDescription.asObservable()
     }
     
+    private let privateFriendsListSource = BehaviorRelay<[PPFriend]>(value: [])
+    public var friendsListSource  : Observable<[PPFriend]> {
+        return self.privateFriendsListSource.asObservable()
+    }
+    
     init(apiHandler: PPApiHandler,
          resturant: PPResturant) {
         self.apiHandler = apiHandler
@@ -68,6 +73,16 @@ class PPPizzaDetailsViewModel : PPViewModel {
             
             self.privateResturantDescription
                 .accept(description)
+            
+            self.apiHandler
+                .getFriendsList()
+                .subscribe(onNext: { (friendsList) in
+                    let friends = friendsList.filter { self.resturant.friendIds.contains("\($0.id)") }
+                    self.privateFriendsListSource.accept(friends)
+                }, onError: { (error) in
+                    self.privateError.accept(error as! PPError)
+                })
+            .disposed(by: self.disposeBag)
         }
     }
 }

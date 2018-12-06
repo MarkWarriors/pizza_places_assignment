@@ -20,6 +20,7 @@ class PizzaPlacesTests: XCTestCase {
     }
 
     func testExample() {
+        //Sample of a test
         let api = PPApiHandler.init(environment: PPEnvironments.productionEnv)
         let expectations = expectation(description: "callbacks")
         expectations.expectedFulfillmentCount = 2

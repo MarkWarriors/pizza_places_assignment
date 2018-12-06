@@ -31,4 +31,17 @@ struct PPResturant: Codable, Hashable {
     var coordinates : CLLocationCoordinate2D? {
         return CLLocationCoordinate2D.init(latitude: self.latitude, longitude: self.longitude)
     }
+    
+    public func isOpenString() -> String {
+        let date = Date()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "EEEE"
+        let today = formatter.string(from: date)
+        
+        // todo check between dates if is open, not only from string
+        if let opening = self.openingHours.filter({ $0.lowercased().starts(with: today) }).first, opening.contains("closed") {
+            return opening.contains("closed") ? PPStrings.Commons.closed : PPStrings.Commons.open
+        }
+        return ""
+    }
 }

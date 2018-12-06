@@ -17,6 +17,7 @@ class PPPizzaDetailsVC: PPViewController, ViewModelBased, UIScrollViewDelegate {
     
     @IBOutlet weak var imageTopConstraint: NSLayoutConstraint!
     @IBOutlet var textHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var friendsListHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var resturantImage: UIImageView!
     @IBOutlet weak var readMoreBtn: UIButton!
@@ -25,13 +26,10 @@ class PPPizzaDetailsVC: PPViewController, ViewModelBased, UIScrollViewDelegate {
     @IBOutlet weak var nameLbl: UILabel!
     @IBOutlet weak var ratingSelector: CosmosView!
     @IBOutlet weak var friendsLikeLbl: UILabel!
+    @IBOutlet weak var friendsCollectionView: UICollectionView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         self.bindViewModel()
     }
     
@@ -71,6 +69,15 @@ class PPPizzaDetailsVC: PPViewController, ViewModelBased, UIScrollViewDelegate {
             })
         })
         .disposed(by: self.disposeBag)
+        
+        friendsCollectionView.register(UINib.init(nibName: PPFriendsCVCell.identifier, bundle: nil), forCellWithReuseIdentifier: PPFriendsCVCell.identifier)
+        
+        viewModel?.friendsListSource
+            .asObservable()
+            .bind(to:
+            friendsCollectionView.rx.items(cellIdentifier: PPFriendsCVCell.identifier, cellType: PPFriendsCVCell.self)) { row, friend, cell in
+                cell.friend = friend
+            }.disposed(by: disposeBag)
     }
     
     

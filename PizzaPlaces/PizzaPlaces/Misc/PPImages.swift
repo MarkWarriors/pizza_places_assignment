@@ -9,6 +9,8 @@
 import UIKit
 
 struct PPImages {
+    public static let placeholder = UIImage(named: "Placeholder")
+
     struct Marker {
         public static let icon = ImageUtils.imageWithImage(image: UIImage(named: "MapMarker")!, scaledToSize: CGSize(width: 26, height: 39))
     }
