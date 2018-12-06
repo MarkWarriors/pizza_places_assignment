@@ -25,7 +25,7 @@ class PPPizzaDetailsVC: PPViewController, ViewModelBased, UIScrollViewDelegate {
     @IBOutlet weak var detailLbl: UILabel!
     @IBOutlet weak var nameLbl: UILabel!
     @IBOutlet weak var ratingSelector: CosmosView!
-    @IBOutlet weak var friendsLikeLbl: UILabel!
+    @IBOutlet weak var openingLbl: UILabel!
     @IBOutlet weak var friendsCollectionView: UICollectionView!
     
     override func viewDidLoad() {
@@ -50,8 +50,8 @@ class PPPizzaDetailsVC: PPViewController, ViewModelBased, UIScrollViewDelegate {
             .bind(to: self.nameLbl.rx.text)
             .disposed(by: self.disposeBag)
         
-        viewModel?.friendsLikes
-            .bind(to: self.friendsLikeLbl.rx.text)
+        viewModel?.isOpened
+            .bind(to: self.openingLbl.rx.text)
             .disposed(by: self.disposeBag)
         
         viewModel?.resturantDescription

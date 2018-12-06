@@ -25,9 +25,9 @@ class PPPizzaDetailsViewModel : PPViewModel {
         return self.privateResturantName.asObservable()
     }
     
-    private let privateFriendsLikes = BehaviorRelay<String>(value: "")
-    public var friendsLikes : Observable<String> {
-        return self.privateFriendsLikes.asObservable()
+    private let privateIsOpened = BehaviorRelay<String>(value: "")
+    public var isOpened : Observable<String> {
+        return self.privateIsOpened.asObservable()
     }
     
     private let privateResturantDescription = BehaviorRelay<String>(value: "")
@@ -57,8 +57,8 @@ class PPPizzaDetailsViewModel : PPViewModel {
             self.privateResturantName
                 .accept(self.resturant.name)
             
-            self.privateFriendsLikes
-                .accept("\(self.resturant.friendIds.count) \(PPStrings.ResturantDetails.friendsLikes)")
+            self.privateIsOpened
+                .accept(self.resturant.isOpenString())
             
             //just to show something, I know that is not nice to do this string in this way
             var description = (self.resturant.formattedAddress ?? "") + "\n"

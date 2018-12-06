@@ -346,10 +346,10 @@
                         <outlet property="bookNowBtn" destination="B5o-ir-5bR" id="hyx-om-jSZ"/>
                         <outlet property="detailLbl" destination="GPt-Pq-1QY" id="HqF-ZJ-LpS"/>
                         <outlet property="friendsCollectionView" destination="Leo-Gf-OuL" id="erc-A4-s6g"/>
-                        <outlet property="friendsLikeLbl" destination="7Fv-rs-mps" id="upm-6W-4SO"/>
                         <outlet property="friendsListHeightConstraint" destination="mmZ-Wi-By1" id="rCE-ZY-Aaa"/>
                         <outlet property="imageTopConstraint" destination="Wiy-Sj-ZjN" id="JQ1-in-cba"/>
                         <outlet property="nameLbl" destination="9Fb-KJ-482" id="Rdq-BQ-V6A"/>
+                        <outlet property="openingLbl" destination="7Fv-rs-mps" id="upm-6W-4SO"/>
                         <outlet property="ratingSelector" destination="mG4-u6-wL5" id="rw1-Wm-h3v"/>
                         <outlet property="readMoreBtn" destination="hFf-FN-MT5" id="Imr-bZ-Ouf"/>
                         <outlet property="resturantImage" destination="qk5-ry-dAL" id="5jU-Ce-uin"/>
