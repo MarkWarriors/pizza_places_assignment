@@ -15,22 +15,16 @@ class PPFriendsCVCell: UICollectionViewCell {
     public var friend : PPFriend? {
         didSet {
             // not a good implementation, but is for finish the work
-            DispatchQueue.main.async {
-                self.friendImageView.image = PPImages.placeholder
-            
-                if let uri = self.friend?.avatarUrl, let url = URL(string: uri), let data = try? Data(contentsOf: url) {
-                        self.friendImageView.image = UIImage(data: data)
+            DispatchQueue.main.async { [weak self] in
+                if let self = self {
+                    self.friendImageView.image = PPImages.placeholder
+                
+                    if let uri = self.friend?.avatarUrl, let url = URL(string: uri), let data = try? Data(contentsOf: url) {
+                            self.friendImageView.image = UIImage(data: data)
+                    }
                 }
             }
         }
     }
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-    
-    
-    
     
 }

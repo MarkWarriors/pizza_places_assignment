@@ -38,13 +38,17 @@ class PPMainViewModel : PPViewModel {
         loadPlaces?
             .asObservable()
             .flatMap{ self.apiHandler.getResturantsList(position: $0) }
-            .catchError({ (error) -> Observable<[PPResturant]> in
-                self.privateError.accept(error as! PPError)
+            .catchError({ [weak self] (error) -> Observable<[PPResturant]> in
+                if let self = self {
+                    self.privateError.accept(error as! PPError)
+                }
                 return Observable.error(error)
             })
             .retry()
-            .map({ (resturants) -> [PPMarker] in
-                self.resturantList = resturants
+            .map({ [weak self] (resturants) -> [PPMarker] in
+                if let self = self {
+                    self.resturantList = resturants
+                }
                 var markerList = [PPMarker]()
                 resturants
                     .filter{ $0.coordinates != nil }
@@ -59,7 +63,7 @@ class PPMainViewModel : PPViewModel {
 
     }
     
-    public func mapDidTapMarker(marker: PPMarker){
+    public func userDidTapMarkerInfoWindow(marker: PPMarker){
         let resturant = self.resturantList.filter{ $0.id == marker.id }.first
         if resturant != nil {
             self.privateSelectedResturant = resturant

@@ -58,7 +58,8 @@ class PPPizzaDetailsVC: PPViewController, ViewModelBased, UIScrollViewDelegate {
             .bind(to: self.detailLbl.rx.text)
             .disposed(by: self.disposeBag)
         
-        readMoreBtn.rx.tap.asDriver().drive(onNext: { (_) in
+        readMoreBtn.rx.tap.asDriver().drive(onNext: { [weak self] (_) in
+            guard let self = self else {return}
             UIView.animate(withDuration: 0.5, animations: {
                 //there are some arrangment to do on the animation of the label.
                 self.textHeightConstraint.isActive.toggle()

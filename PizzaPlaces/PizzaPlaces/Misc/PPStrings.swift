@@ -27,8 +27,8 @@ struct PPStrings {
     
     // MARK: Common Strings
     struct Commons {
-        public static let open = "(OPEN)".localized
-        public static let closed = "(CLOSED)".localized
+        public static let open = "TODAY IS OPEN".localized
+        public static let closed = "TODAY IS CLOSED".localized
         public static let loading = "Loading".localized
         public static let ok = "Ok".localized
         public static let error = "Error".localized

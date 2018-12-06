@@ -187,12 +187,27 @@ class PPRoundButton: UIButton {
 
 class PPMarker : GMSMarker {
     var id : String
+    override var hash : Int {
+        return id.hashValue
+    }
+    
+    static func ==(lhs: PPMarker, rhs: PPMarker) -> Bool {
+        return lhs.id == rhs.id
+    }
     
     init(resturant: PPResturant) {
         self.id = resturant.id
         //TODO OPEN/CLOSE
         super.init()
-        self.snippet = resturant.name + " " + resturant.isOpenString() ?? ""
+        self.snippet = resturant.name + "\n" + resturant.isOpenString()
         self.position = resturant.coordinates ?? CLLocationCoordinate2D()
+    }
+}
+
+extension Array where Element: Hashable {
+    func difference(from other: [Element]) -> [Element] {
+        let thisSet = Set(self)
+        let otherSet = Set(other)
+        return Array(thisSet.symmetricDifference(otherSet))
     }
 }

@@ -76,11 +76,15 @@ class PPPizzaDetailsViewModel : PPViewModel {
             
             self.apiHandler
                 .getFriendsList()
-                .subscribe(onNext: { (friendsList) in
-                    let friends = friendsList.filter { self.resturant.friendIds.contains("\($0.id)") }
-                    self.privateFriendsListSource.accept(friends)
-                }, onError: { (error) in
-                    self.privateError.accept(error as! PPError)
+                .subscribe(onNext: { [weak self] (friendsList) in
+                    if let self = self {
+                        let friends = friendsList.filter { self.resturant.friendIds.contains("\($0.id)") }
+                        self.privateFriendsListSource.accept(friends)
+                    }
+                }, onError: { [weak self] (error) in
+                    if let self = self {
+                        self.privateError.accept(error as! PPError)
+                    }
                 })
             .disposed(by: self.disposeBag)
         }
