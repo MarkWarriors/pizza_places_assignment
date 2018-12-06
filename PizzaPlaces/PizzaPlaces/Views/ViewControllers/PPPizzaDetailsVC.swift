@@ -20,11 +20,11 @@ class PPPizzaDetailsVC: PPViewController, ViewModelBased, UIScrollViewDelegate {
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var resturantImage: UIImageView!
     @IBOutlet weak var readMoreBtn: UIButton!
-    @IBOutlet weak var favouriteBtn: PPRoundButton!
     @IBOutlet weak var bookNowBtn: PPRoundButton!
     @IBOutlet weak var detailLbl: UILabel!
     @IBOutlet weak var nameLbl: UILabel!
     @IBOutlet weak var ratingSelector: CosmosView!
+    @IBOutlet weak var friendsLikeLbl: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,14 +52,13 @@ class PPPizzaDetailsVC: PPViewController, ViewModelBased, UIScrollViewDelegate {
             .bind(to: self.nameLbl.rx.text)
             .disposed(by: self.disposeBag)
         
+        viewModel?.friendsLikes
+            .bind(to: self.friendsLikeLbl.rx.text)
+            .disposed(by: self.disposeBag)
+        
         viewModel?.resturantDescription
             .bind(to: self.detailLbl.rx.text)
             .disposed(by: self.disposeBag)
-        
-        favouriteBtn.rx.tap.asDriver().drive(onNext: { (_) in
-            
-        })
-        .disposed(by: self.disposeBag)
         
         readMoreBtn.rx.tap.asDriver().drive(onNext: { (_) in
             UIView.animate(withDuration: 0.5, animations: {
@@ -83,6 +82,7 @@ class PPPizzaDetailsVC: PPViewController, ViewModelBased, UIScrollViewDelegate {
             let move = yOffset > imageHeight ? -imageHeight : -yOffset
             self.imageTopConstraint.constant = move / 2
         }
+        // also maybe hide favourite btn when go behinde the resturant name and make it appear on the bar
     }
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {

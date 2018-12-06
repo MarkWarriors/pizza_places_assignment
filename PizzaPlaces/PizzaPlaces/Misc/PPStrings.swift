@@ -20,6 +20,11 @@ struct PPStrings {
         public static let readLess = "Read less".localized
     }
     
+    struct ResturantDetails {
+        public static let friendsLikes = "friends like this place".localized
+        public static let openingHours = "OPENING HOURS".localized
+    }
+    
     // MARK: Common Strings
     struct Commons {
         public static let loading = "Loading".localized
