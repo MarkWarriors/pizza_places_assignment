@@ -7,13 +7,58 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class PPPizzaDetailsViewModel : PPViewModel {
     
     private let apiHandler : PPApiHandler
+    private let resturant : PPResturant
     
-    init(apiHandler: PPApiHandler) {
-        self.apiHandler = apiHandler
+    private let privateResturantImage = BehaviorRelay<UIImage?>(value: nil)
+    public var resturantImage : Observable<UIImage?> {
+        return self.privateResturantImage.asObservable()
     }
     
+    private let privateResturantName = BehaviorRelay<String>(value: "")
+    public var resturantName : Observable<String> {
+        return self.privateResturantName.asObservable()
+    }
+    
+    private let privateResturantDescription = BehaviorRelay<String>(value: "")
+    public var resturantDescription : Observable<String> {
+        return self.privateResturantDescription.asObservable()
+    }
+    
+    init(apiHandler: PPApiHandler,
+         resturant: PPResturant) {
+        self.apiHandler = apiHandler
+        self.resturant = resturant
+    }
+    
+    public func initBindings(viewWillAppear: Driver<Void>){
+        if let imageUri = resturant.images.first?.url,
+            let url = URL(string: imageUri){
+            self.apiHandler
+                .downloadImage(uri: url)
+                .bind(to: self.privateResturantImage)
+                .disposed(by: self.disposeBag)
+            
+            self.privateResturantName
+                .accept(self.resturant.name)
+            
+            //just to show something, I know that is not nice to do this string in this way
+            var description = (self.resturant.formattedAddress ?? "") + "\n"
+            description.append((self.resturant.phone ?? "") + "\n")
+            description.append((self.resturant.website ?? "") + "\n\nOPENING HOURS: \n")
+            
+            self.resturant.openingHours.forEach { (hour) in
+                description.append(hour + "\n")
+            }
+            
+            
+            self.privateResturantDescription
+                .accept(description)
+        }
+    }
 }

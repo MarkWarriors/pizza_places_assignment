@@ -15,6 +15,9 @@ class PPMainViewModel : PPViewModel {
     
     private let apiHandler : PPApiHandler
     
+    private var privateSelectedResturant : PPResturant?
+    private var resturantList : [PPResturant] = []
+    
     private let privateMarkerList = BehaviorRelay<[PPMarker]>(value: [])
     public var markerList : Observable<[PPMarker]> {
         return self.privateMarkerList.asObservable()
@@ -30,8 +33,7 @@ class PPMainViewModel : PPViewModel {
     }
     
     public func initBindings(viewWillAppear: Driver<Void>,
-                             loadPlaces: Driver<(GMSCameraPosition)>?,
-                             poiTapped: Driver<(placeId: String, name: String, location: CLLocationCoordinate2D)>?){
+                             loadPlaces: Driver<(GMSCameraPosition)>?){
         
         loadPlaces?
             .asObservable()
@@ -42,6 +44,7 @@ class PPMainViewModel : PPViewModel {
             })
             .retry()
             .map({ (resturants) -> [PPMarker] in
+                self.resturantList = resturants
                 var markerList = [PPMarker]()
                 resturants
                     .filter{ $0.coordinates != nil }
@@ -53,9 +56,28 @@ class PPMainViewModel : PPViewModel {
             })
             .bind(to: self.privateMarkerList)
         .disposed(by: self.disposeBag)
-    
+
     }
     
+    public func mapDidTapMarker(marker: PPMarker){
+        let resturant = self.resturantList.filter{ $0.id == marker.id }.first
+        if resturant != nil {
+            self.privateSelectedResturant = resturant
+            self.privateRequestSegue.accept(PPStrings.Segues.mainToDetails)
+        }
+        else {
+            self.privateError.accept(PPError.init(localizedDescription: PPStrings.Errors.errorGeneric))
+        }
+    }
     
+    public func prepare(_ segue: inout UIStoryboardSegue) {
+        if segue.identifier == PPStrings.Segues.mainToDetails, let vc = segue.destination as? PPPizzaDetailsVC, let resturant = privateSelectedResturant {
+            vc.viewModel = PPPizzaDetailsViewModel(apiHandler: self.apiHandler,
+                                                   resturant: resturant)
+        }
+        else {
+            self.privateError.accept(PPError.init(localizedDescription: PPStrings.Errors.errorGeneric))
+        }
+    }
     
 }

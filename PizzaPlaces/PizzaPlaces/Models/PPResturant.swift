@@ -9,7 +9,11 @@
 import Foundation
 import CoreLocation
 
-struct PPResturant: Codable {
+struct PPResturant: Codable, Hashable {
+    static func == (lhs: PPResturant, rhs: PPResturant) -> Bool {
+        return lhs.id == rhs.id
+    }
+    
     let id : String
     let name : String
     let phone : String?
@@ -20,6 +24,9 @@ struct PPResturant: Codable {
     let longitude, latitude: Double
     let images: [Image]
     let friendIds: [String]
+    var hashValue : Int {
+        return id.hashValue
+    }
     
     var coordinates : CLLocationCoordinate2D? {
         return CLLocationCoordinate2D.init(latitude: self.latitude, longitude: self.longitude)

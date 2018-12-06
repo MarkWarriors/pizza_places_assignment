@@ -88,6 +88,30 @@ class PPApiHandler {
         }
     }
 
-    
+    func downloadImage(uri: URL) -> Observable<UIImage?> {
+        return Observable.create { (observer) -> Disposable in
+            self.sessionManager.request(uri, method: .get)
+                .validate()
+                .responseData { (response) in
+                    switch (response.result) {
+                    case .success:
+                        if let data = response.data, let image = UIImage(data: data) {
+                            observer.on(.next(image))
+                            observer.on(.completed)
+                        }
+                        else {
+                            observer.on(.error(PPError(localizedDescription: PPStrings.Errors.unknownError)))
+                        }
+                        break
+                    case .failure:
+                        // TODO: improve errors from status code
+                        observer.on(.error(PPError(localizedDescription: PPStrings.Errors.invalidRequest)))
+                        break
+                    }
+            }
+            
+            return Disposables.create()
+        }
+    }
     
 }

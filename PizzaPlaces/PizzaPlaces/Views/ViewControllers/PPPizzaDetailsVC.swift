@@ -7,23 +7,66 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class PPPizzaDetailsVC: PPViewController, ViewModelBased, UIScrollViewDelegate {
     typealias ViewModel = PPPizzaDetailsViewModel
     var viewModel: PPPizzaDetailsViewModel?
     
     @IBOutlet weak var imageTopConstraint: NSLayoutConstraint!
+    @IBOutlet var textHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var resturantImage: UIImageView!
+    @IBOutlet weak var readMoreBtn: UIButton!
+    @IBOutlet weak var bookNowBtn: PPRoundButton!
+    @IBOutlet weak var detailLbl: UILabel!
+    @IBOutlet weak var nameLbl: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.bindViewModel()
     }
     
     func bindViewModel() {
+        let viewWillAppear =  self.rx.sentMessage(#selector(UIViewController.viewWillAppear(_:)))
+            .map({ _ -> Void in return () })
+            .asDriver(onErrorJustReturn: ())
         
+        viewModel!.initBindings(viewWillAppear: viewWillAppear)
+        
+        viewModel?.resturantImage
+            .catchError { Observable.error(error) }
+            .filter{ $0 != nil }
+            .bind(to: resturantImage.rx.image)
+            .disposed(by: self.disposeBag)
+        
+        viewModel?.resturantName
+            .bind(to: self.nameLbl.rx.text)
+            .disposed(by: self.disposeBag)
+        
+        viewModel?.resturantDescription
+            .bind(to: self.detailLbl.rx.text)
+            .disposed(by: self.disposeBag)
+        
+        readMoreBtn.rx.tap.asDriver().drive(onNext: { (_) in
+            UIView.animate(withDuration: 0.5, animations: {
+                //there are some arrangment to do on the animation of the label.
+                self.textHeightConstraint.isActive.toggle()
+                let title = self.textHeightConstraint.isActive ? PPStrings.Buttons.readMore : PPStrings.Buttons.readLess
+                self.readMoreBtn.setTitle(title, for: .normal)
+                self.view.layoutIfNeeded()
+            }, completion: { (completed) in
+            })
+        })
+        .disposed(by: self.disposeBag)
     }
+    
+    
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let imageHeight = resturantImage.frame.size.height
@@ -46,10 +89,11 @@ class PPPizzaDetailsVC: PPViewController, ViewModelBased, UIScrollViewDelegate {
         let yOffset = scrollView.contentOffset.y
         let imageHeight = resturantImage.frame.size.height
         if yOffset > 0 {
-            if yOffset < imageHeight / 2 {
-                scrollView.setContentOffset(CGPoint.zero, animated: true)
-            }
-            else if yOffset < imageHeight {
+//            if yOffset < imageHeight / 2 {
+//                scrollView.setContentOffset(CGPoint.zero, animated: true)
+//            }
+//            else
+            if (yOffset < imageHeight) && (scrollView.contentSize.height > (self.view.frame.size.height + imageHeight)) {
                 scrollView.setContentOffset(CGPoint.init(x: 0, y: imageHeight), animated: true)
             }
         }

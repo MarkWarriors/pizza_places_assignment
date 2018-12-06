@@ -10,28 +10,38 @@ import Foundation
 
 struct PPStrings {
     
+    struct Segues {
+        public static let mainToDetails = "mainToDetails"
+    }
+    
+    
+    struct Buttons {
+        public static let readMore = "Read more".localized
+        public static let readLess = "Read less".localized
+    }
+    
     // MARK: Common Strings
     struct Commons {
-        public static let loading : String = "Loading".localized
-        public static let ok : String = "Ok".localized
-        public static let error : String = "Error".localized
-        public static let unknown : String = "unknown".localized
+        public static let loading = "Loading".localized
+        public static let ok = "Ok".localized
+        public static let error = "Error".localized
+        public static let unknown = "unknown".localized
     }
     
     struct Errors {
         // MARK: Errors Strings
-        public static let errorGeneric : String = "An error occurred".localized
-        public static let unknownError : String = "Unknown Error".localized
-        public static let cityNotFoundError : String = "City not found".localized
-        public static let connectionError : String = "Connection Error".localized
-        public static let invalidCredentials : String = "Invalid Credentials".localized
-        public static let invalidRequest : String = "Invalid Request".localized
-        public static let notFound : String = "Not Found".localized
-        public static let invalidResponse : String = "Invalid Response".localized
-        public static let serverError : String = "Server Error".localized
-        public static let serverUnavailable : String = "Server Unavailable".localized
-        public static let timeOut : String = "TimeOut".localized
-        public static let unsuppotedURL : String = "UnsuppotedURL".localized
+        public static let errorGeneric = "An error occurred".localized
+        public static let unknownError = "Unknown Error".localized
+        public static let cityNotFoundError = "City not found".localized
+        public static let connectionError = "Connection Error".localized
+        public static let invalidCredentials = "Invalid Credentials".localized
+        public static let invalidRequest = "Invalid Request".localized
+        public static let notFound = "Not Found".localized
+        public static let invalidResponse = "Invalid Response".localized
+        public static let serverError = "Server Error".localized
+        public static let serverUnavailable = "Server Unavailable".localized
+        public static let timeOut = "TimeOut".localized
+        public static let unsuppotedURL = "UnsuppotedURL".localized
     }
 }
     
